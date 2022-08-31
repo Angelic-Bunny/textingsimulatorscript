@@ -1,0 +1,92 @@
+ ______     __   __     ______     ______     __         __     ______     ______     __  __     __   __     __   __     __  __    
+/\  __ \   /\ "-.\ \   /\  ___\   /\  ___\   /\ \       /\ \   /\  ___\   /\  == \   /\ \/\ \   /\ "-.\ \   /\ "-.\ \   /\ \_\ \   
+\ \  __ \  \ \ \-.  \  \ \ \__ \  \ \  __\   \ \ \____  \ \ \  \ \ \____  \ \  __<   \ \ \_\ \  \ \ \-.  \  \ \ \-.  \  \ \____ \  
+ \ \_\ \_\  \ \_\\"\_\  \ \_____\  \ \_____\  \ \_____\  \ \_\  \ \_____\  \ \_____\  \ \_____\  \ \_\\"\_\  \ \_\\"\_\  \/\_____\ 
+  \/_/\/_/   \/_/ \/_/   \/_____/   \/_____/   \/_____/   \/_/   \/_____/   \/_____/   \/_____/   \/_/ \/_/   \/_/ \/_/   \/_____/ 
+                                                                                                                                  
+-- Made By Angelic_Bunny
+-- Version: 1.0
+
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local ImageLabel = Instance.new("ImageLabel")
+local TextButton = Instance.new("TextButton")
+local TextButton_2 = Instance.new("TextButton")
+
+--Properties:
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+ImageLabel.Parent = ScreenGui
+ImageLabel.BackgroundTransparency = 1.000
+ImageLabel.Size = UDim2.new(0, 227, 0, 202)
+ImageLabel.Image = "rbxassetid://3643326309"
+
+TextButton.Parent = ImageLabel
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.BorderColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.Position = UDim2.new(0.100263193, 0, 0.255662709, 0)
+TextButton.Size = UDim2.new(0, 181, 0, 50)
+TextButton.Font = Enum.Font.Cartoon
+TextButton.Text = "AutoText"
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextSize = 36.000
+
+TextButton_2.Parent = ImageLabel
+TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_2.BorderColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_2.Position = UDim2.new(0.115934819, 0, 0.501593709, 0)
+TextButton_2.Size = UDim2.new(0, 173, 0, 50)
+TextButton_2.Font = Enum.Font.Cartoon
+TextButton_2.Text = "AutoSell"
+TextButton_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_2.TextSize = 36.000
+
+-- Scripts:
+
+local function EMFUMDG_fake_script() -- ImageLabel.DragScript 
+	local script = Instance.new('LocalScript', ImageLabel)
+
+	--Not made by me, check out this video: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
+	--Put this inside of your Frame and configure the speed if you would like.
+	--Enjoy! Credits go to: https://www.youtube.com/watch?v=z25nyNBG7Js&t=22s
+	
+	local UIS = game:GetService('UserInputService')
+	local frame = script.Parent
+	local dragToggle = nil
+	local dragSpeed = 0.25
+	local dragStart = nil
+	local startPos = nil
+	
+	local function updateInput(input)
+		local delta = input.Position - dragStart
+		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
+	end
+	
+	frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+			dragToggle = true
+			dragStart = input.Position
+			startPos = frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+	
+	UIS.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			if dragToggle then
+				updateInput(input)
+			end
+		end
+	end)
+	
+end
+coroutine.wrap(EMFUMDG_fake_script)()
+                                                                                                                                  
